@@ -70,6 +70,66 @@
 </head>
 <body class="min-h-screen scanline">
 
+    <!-- Bahagian Borang Pembayaran / Pendaftaran Manual FPX Maybank -->
+<div class="cyber-card" style="padding: 20px; max-width: 500px; margin: 20px auto; border-radius: 8px;">
+    <h3 class="cyber-font" style="color: #ff1e38; margin-bottom: 15px;">BAYARAN MANUAL FPX / MAYBANK2U</h3>
+    
+    <div style="background: rgba(255, 30, 56, 0.1); padding: 12px; border-left: 4px solid #ff1e38; margin-bottom: 20px; font-size: 0.9rem;">
+        <p style="margin: 0 0 5px 0;"><strong>Nama Penerima:</strong> MOHD AKBAR BIN SABTAR</p>
+        <p style="margin: 0 0 5px 0;"><strong>Bank:</strong> MAYBANK</p>
+        <p style="margin: 0;"><strong>No. Akaun:</strong> <span style="color: #ff4d6d; font-weight: bold;">151155787411</span></p>
+    </div>
+
+    <form id="fpxForm" onsubmit="submitPayment(event)">
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px; font-size: 0.85rem;">Nama Penuh Pembayar:</label>
+            <input type="text" id="payerName" required style="width: 100%; padding: 10px; background: #0a0a0a; border: 1px solid #ff1e38; color: #fff; border-radius: 4px;" placeholder="Cth: Ahmad bin Ali">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px; font-size: 0.85rem;">Jumlah Bayaran (RM):</label>
+            <input type="number" id="payerAmount" required style="width: 100%; padding: 10px; background: #0a0a0a; border: 1px solid #ff1e38; color: #fff; border-radius: 4px;" placeholder="Cth: 20.00">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px; font-size: 0.85rem;">Rujukan / No. Resit Transaksi:</label>
+            <input type="text" id="payerRef" required style="width: 100%; padding: 10px; background: #0a0a0a; border: 1px solid #ff1e38; color: #fff; border-radius: 4px;" placeholder="Cth: M2U123456789">
+        </div>
+
+        <button type="submit" class="glitch-btn" style="width: 100%; padding: 12px; cursor: pointer; text-align: center; font-weight: bold; text-transform: uppercase;">
+            Hantar Bukti Pembayaran
+        </button>
+    </form>
+    
+    <div id="successMsg" style="display: none; margin-top: 15px; color: #00ffcc; text-align: center; font-size: 0.9rem;">
+        Terima kasih! Maklumat pembayaran anda telah direkodkan. Sila pastikan anda membuat pindahan wang ke akaun di atas.
+    </div>
+</div>
+
+<script>
+function submitPayment(event) {
+    event.preventDefault();
+    
+    // Ambil nilai dari borang
+    const name = document.getElementById('payerName').value;
+    const amount = document.getElementById('payerAmount').value;
+    const ref = document.getElementById('payerRef').value;
+    
+    // Anda boleh sambungkan ini ke WhatsApp atau simpan data
+    // Contoh sambungan terus ke WhatsApp admin (Raihan):
+    const whatsappNumber = "601XXXXXXXX"; // Tukar kepada nombor WhatsApp anda
+    const message = `Halo Admin, saya sudah buat bayaran manual FPX Maybank.%0A%0ANama: ${name}%0AJumlah: RM${amount}%0ANo. Rujukan: ${ref}%0A(No Acc Penerima: 151155787411 - MOHD AKBAR BIN SABTAR)`;
+    
+    // Paparkan mesej berjaya
+    document.getElementById('successMsg').style.display = 'block';
+    
+    // Buka WhatsApp automatik (pilihan)
+    setTimeout(() => {
+        window.open(`https://wa.me/${0178153522}?text=${message}`, '_blank');
+    }, 1000);
+}
+    </script>
+
     <!-- Navigasi Cyberpunk -->
     <nav class="bg-black/95 border-b-2 border-red-600 sticky top-0 z-50 px-6 py-4 flex justify-between items-center backdrop-blur-md">
         <div class="flex items-center gap-3">
