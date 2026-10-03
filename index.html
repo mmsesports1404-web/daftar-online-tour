@@ -3,60 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MMS Esports | MLBB Tournament</title>
+    <title>MMS ESPORTS | CYBERPUNK TOURNAMENT</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Orbitron & Rajdhani untuk gaya Cyberpunk -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Poppins', sans-serif; background-color: #0b0f19; color: #ffffff; }
-        .gaming-card { background: linear-gradient(135deg, #161f30 0%, #0f172a 100%); border: 1px solid #1e293b; }
-        .glow-btn { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); transition: all 0.3s ease; }
-        .glow-btn:hover { box-shadow: 0 0 20px rgba(245, 158, 11, 0.6); }
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: #050508;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, .cyber-font {
+            font-family: 'Orbitron', sans-serif;
+        }
+        .cyber-card {
+            background: linear-gradient(135deg, rgba(20, 5, 8, 0.9) 0%, rgba(10, 2, 4, 0.95) 100%);
+            border: 1px solid #ff1e38;
+            box-shadow: 0 0 15px rgba(255, 30, 56, 0.2);
+            position: relative;
+        }
+        .cyber-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 10px; height: 10px;
+            border-top: 2px solid #ff1e38;
+            border-left: 2px solid #ff1e38;
+        }
+        .glitch-btn {
+            background: linear-gradient(135deg, #ff1e38 0%, #b3001b 100%);
+            border: 2px solid #ff4d6d;
+            box-shadow: 0 0 20px rgba(255, 30, 56, 0.6);
+            transition: all 0.2s ease-in-out;
+            position: relative;
+        }
+        .glitch-btn:hover {
+            background: #ff4d6d;
+            box-shadow: 0 0 30px rgba(255, 77, 109, 0.9);
+            transform: scale(1.02);
+        }
+        /* Animasi Neon Pulse Merah */
+        @keyframes pulseGlow {
+            0% { text-shadow: 0 0 10px rgba(255, 30, 56, 0.8), 0 0 20px rgba(255, 30, 56, 0.5); }
+            50% { text-shadow: 0 0 25px rgba(255, 30, 56, 1), 0 0 40px rgba(255, 77, 109, 0.8); }
+            100% { text-shadow: 0 0 10px rgba(255, 30, 56, 0.8), 0 0 20px rgba(255, 30, 56, 0.5); }
+        }
+        .neon-glow {
+            animation: pulseGlow 2s infinite;
+        }
+        /* Garisan Laser Bergerak */
+        .scanline {
+            background: linear-gradient(to bottom, transparent 50%, rgba(255, 0, 0, 0.15) 51%);
+            background-size: 100% 4px;
+        }
     </style>
 </head>
-<body class="min-h-screen">
+<body class="min-h-screen scanline">
 
-    <!-- Navigasi -->
-    <nav class="bg-slate-950/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50 px-6 py-4 flex justify-between items-center">
-        <div class="text-xl font-black text-amber-400 tracking-wider">MMS ESPORTS</div>
-        <div class="space-x-4 text-sm font-semibold">
-            <a href="index.html" class="text-amber-400">Utama</a>
-            <a href="register.html" class="text-gray-300 hover:text-amber-400">Daftar</a>
-            <a href="schedule.html" class="text-gray-300 hover:text-amber-400">Jadual</a>
+    <!-- Audio untuk Sound Pop / Klik -->
+    <audio id="popSound" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3" preload="auto"></audio>
+
+    <!-- Navigasi Cyberpunk -->
+    <nav class="bg-black/90 border-b-2 border-red-600 sticky top-0 z-50 px-6 py-4 flex justify-between items-center backdrop-blur-md">
+        <div class="text-xl font-black text-red-500 cyber-font tracking-widest neon-glow">MMS // ESPORTS</div>
+        <div class="space-x-6 text-sm font-bold cyber-font tracking-wider">
+            <a href="#home" onclick="playPop()" class="text-red-500 hover:text-white transition">UTAMA</a>
+            <a href="#info" onclick="playPop()" class="text-gray-400 hover:text-red-500 transition">INFO</a>
+            <a href="#register" onclick="playPop()" class="text-gray-400 hover:text-red-500 transition">DAFTAR</a>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header class="max-w-4xl mx-auto px-4 py-16 text-center">
-        <span class="bg-amber-500/10 text-amber-400 border border-amber-500/30 text-xs px-3 py-1 rounded-full font-semibold uppercase tracking-wider">Official Tournament Season 1</span>
-        <h1 class="text-4xl md:text-6xl font-black mt-4 tracking-wide text-white">MMS MLBB OPEN CUP</h1>
-        <p class="text-gray-400 mt-4 max-w-xl mx-auto text-sm md:text-base">Buktikan kehebatan pasukan korang di arena Mobile Legends. Rebut hadiah terkumpul lumayan sekarang!</p>
+    <!-- Header / Hero Section -->
+    <header id="home" class="max-w-4xl mx-auto px-4 py-16 text-center">
+        <span class="bg-red-950/80 text-red-400 border border-red-600 text-xs px-4 py-1 rounded cyber-font uppercase tracking-widest">SYSTEM ONLINE: MLBB TOURNAMENT</span>
+        <h1 class="text-4xl md:text-7xl font-black mt-6 tracking-wider text-white cyber-font neon-glow">
+            MMS <span class="text-red-600">OPEN CUP</span>
+        </h1>
+        <p class="text-gray-400 mt-4 max-w-xl mx-auto text-base md:text-lg">
+            Masuk ke arena pertarungan siber 5v5. Buktikan dominasi pasukan anda dan rebut takhta kejuaraan!
+        </p>
         
         <div class="mt-8 flex justify-center gap-4">
-            <a href="register.html" class="glow-btn text-slate-950 font-bold px-8 py-3 rounded-xl uppercase tracking-wider text-sm shadow-lg">Daftar Sekarang</a>
-            <a href="schedule.html" class="bg-slate-800 hover:bg-slate-700 text-white font-bold px-8 py-3 rounded-xl uppercase tracking-wider text-sm border border-slate-700">Lihat Jadual</a>
+            <a href="#register" onclick="playPop()" class="glitch-btn text-white font-bold px-8 py-4 rounded uppercase tracking-widest cyber-font text-sm">
+                ⚡ DAFTAR SEKARANG
+            </a>
         </div>
     </header>
 
-    <!-- Info & Hadiah -->
-    <section class="max-w-5xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="gaming-card p-6 rounded-2xl">
-            <h3 class="text-lg font-bold text-amber-400 mb-3">📌 Maklumat Ringkas</h3>
-            <ul class="space-y-2 text-sm text-gray-300">
+    <!-- Maklumat & Organisasi -->
+    <section id="info" class="max-w-5xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="cyber-card p-6 rounded-lg">
+            <h3 class="text-lg font-bold text-red-500 cyber-font mb-4 flex items-center gap-2">
+                <span>🔴</span> MAKLUMAT ASAS
+            </h3>
+            <ul class="space-y-3 text-sm text-gray-300">
+                <li>• <strong>Organisasi:</strong> MMS Esports</li>
+                <li>• <strong>Founder:</strong> Superbrain</li>
                 <li>• <strong>Format:</strong> 5v5 Custom Draft Pick</li>
-                <li>• <strong>Yuran:</strong> RMxx per team (Bayar via Maybank)</li>
-                <li>• <strong>Slot:</strong> Terhad kepada 16 / 32 Pasukan</li>
-                <li>• <strong>Penganjur:</strong> MMS Esports (Superbrain & Team)</li>
+                <li>• <strong>Staf Bertugas:</strong> Sponsor (Mifzal) | Organizer/Editor (Habib)</li>
             </ul>
         </div>
-        <div class="gaming-card p-6 rounded-2xl">
-            <h3 class="text-lg font-bold text-amber-400 mb-3">🏆 Hadiah Terkumpul (Prize Pool)</h3>
-            <ul class="space-y-2 text-sm text-gray-300">
-                <li>🥇 <strong>Juara:</strong> Wang Tunai + Trofi + E-Sijil</li>
-                <li>🥈 <strong>Naib Juara:</strong> Wang Tunai + E-Sijil</li>
-                <li>🥉 <strong>Tempat Ketiga:</strong> Wang Tunai + E-Sijil</li>
-            </ul>
+        
+        <div class="cyber-card p-6 rounded-lg border-red-600">
+            <h3 class="text-lg font-bold text-red-500 cyber-font mb-4 flex items-center gap-2">
+                <span>💳</span> PEMBAYARAN YURAN (MAYBANK)
+            </h3>
+            <div class="bg-black/60 p-4 rounded border border-red-900 text-sm space-y-2">
+                <p><strong>Nama:</strong> MOHD AKBAR BIN SABTAR</p>
+                <p><strong>Bank:</strong> MAYBANK</p>
+                <p><strong>No. Akaun:</strong> <span class="text-red-400 font-mono font-bold text-base">151155787411</span></p>
+            </div>
+            <p class="text-xs text-red-400 mt-3">⚠️ <strong>Wajib:</strong> Simpan screenshot resit bayaran untuk ditunjukkan kepada admin dalam WhatsApp selepas menghantar borang.</p>
         </div>
     </section>
 
+    <!-- Borang Pendaftaran WhatsApp -->
+    <section id="register" class="max-w-2xl mx-auto px-4 py-12">
+        <div class="cyber-card p-6 md:p-8 rounded-lg shadow-2xl">
+            <h2 class="text-2xl font-black text-center text-red-500 cyber-font mb-6 neon-glow">
+                BORANG PENDAFTARAN PASUKAN
+            </h2>
+
+            <form id="cyberForm" class="space-y-5">
+                <div>
+                    <label class="block text-xs uppercase cyber-font text-red-400 mb-2">Nama Pasukan (Team Name)</label>
+                    <input type="text" id="teamName" required oninput="playPop()" class="w-full bg-black border border-red-800 rounded px-4 py-3 text-white focus:outline-none focus:border-red-500 font-bold" placeholder="Contoh: MMS LEGENDS">
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs uppercase cyber-font text-red-400 mb-2">Nama Ketua (Captain)</label>
+                        <input type="text" id="captainName" required oninput="playPop()" class="w-full bg-black border border-red-800 rounded px-4 py-3 text-white focus:outline-none focus:border-red-500" placeholder="Nama Kapten">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase cyber-font text-red-400 mb-2">No. WhatsApp Kapten</label>
+                        <input type="tel" id="captainPhone" required oninput="playPop()" class="w-full bg-black border border-red-800 rounded px-4 py-3 text-white focus:outline-none focus:border-red-500" placeholder="60123456789">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs uppercase cyber-font text-red-400 mb-2">Senarai Pemain & ID ML (Server)</label>
+                    <textarea id="playerList" rows="6" required oninput="playPop()" class="w-full bg-black border border-red-800 rounded px-4 py-3 text-white focus:outline-none focus:border-red-500 font-mono text-xs" placeholder="Jungler - Player 1 (ID & Server)
+Exp - Player 2 (ID & Server)
+Gold - Player 3 (ID & Server)
+Mid - Player 4 (ID & Server)
+Roam - Player 5 (ID & Server)
+Reserve - Player 6 (ID & Server)"></textarea>
+                </div>
+
+                <div class="bg-red-950/40 p-4 rounded border border-red-900">
+                    <label class="flex items-center space-x-3 cursor-pointer">
+                        <input type="checkbox" id="receiptCheck" required onclick="playPop()" class="w-5 h-5 accent-red-600 bg-black border-red-700 rounded">
+                        <span class="text-xs text-gray-300">Saya mengesahkan yuran Maybank telah dibayar kepada <strong>MOHD AKBAR BIN SABTAR (151155787411)</strong> dan resit screenshot sedia dilampirkan di WhatsApp.</span>
+                    </label>
+                </div>
+
+                <button type="submit" onclick="playPop()" class="w-full glitch-btn text-white font-black py-4 rounded text-center uppercase tracking-widest cyber-font text-lg shadow-lg">
+                    🚀 HANTAR PENDAFTARAN VIA WHATSAPP
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center py-8 text-xs text-gray-500 border-t border-red-950 mt-12 cyber-font">
+        © 2026 MMS ESPORTS. ALL RIGHTS RESERVED. POWERED BY CYBERNET.
+    </footer>
+
+    <!-- Script Animasi & WhatsApp Trigger -->
+    <script>
+        // Fungsi Bunyi Pop / Klik
+        function playPop() {
+            const sound = document.getElementById('popSound');
+            sound.currentTime = 0;
+            sound.play().catch(e => console.log("Audio blocked by browser policy"));
+        }
+
+        // Proses Hantar ke WhatsApp Admin
+        document.getElementById('cyberForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            playPop();
+
+            const teamName = document.getElementById('teamName').value;
+            const captainName = document.getElementById('captainName').value;
+            const captainPhone = document.getElementById('captainPhone').value;
+            const playerList = document.getElementById('playerList').value;
+
+            // Masukkan nombor WhatsApp admin penerima di sini (Format 601xxxxxxxx)
+            const adminPhone = "601112345678"; 
+
+            const message = `*⚡ PENDAFTARAN CYBERPUNK MLBB TOURNAMENT ⚡*\n\n` +
+                            `*Nama Pasukan:* ${teamName}\n` +
+                            `*Ketua Pasukan:* ${captainName}\n` +
+                            `*No. WhatsApp:* ${captainPhone}\n\n` +
+                            `*Roster Pemain:*\n${playerList}\n\n` +
+                            `*Status Bayaran:* Telah bayar RM kepada Maybank (MOHD AKBAR BIN SABTAR - 151155787411).\n` +
+                            `_Resit screenshot sedia dilampirkan di bawah._\n\n` +
+                            `*Sila sahkan slot team kami admin!*`;
+
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/${adminPhone}?text=${encodedMessage}`, '_blank');
+        });
+    </script>
 </body>
-</html>
+            </html>
