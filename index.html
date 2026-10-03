@@ -301,5 +301,23 @@ RESERVE - PLAYER 6 (ID & SERVER)"></textarea>
             window.open(`https://wa.me/${0178153522}?text=${encodedMessage}`, '_blank');
         });
     </script>
+    <script>
+function sendToWhatsApp(event) {
+    event.preventDefault();
+    
+    // Ambil nilai dari borang anda
+    const teamName = document.getElementById('teamName').value;
+    const captainName = document.getElementById('captainName').value;
+    const captainPhone = document.getElementById('captainPhone').value;
+    const players = document.getElementById('playerList').value;
+    
+    // --> TUKAR NOMBOR INI KEPADA NOMBOR WHATSAPP ANDA (Cth: 60123456789) <--
+    const whatsappNumber = "0178153522"; 
+    
+    const message = `*PENDAFTARAN TOURNAMENT MLBB*%0A%0ANama Pasukan: ${teamName}%0AKetua (Captain): ${captainName}%0ANo. Tel Kapten: ${captainPhone}%0A%0ASenarai Pemain & ID:%0A${players}%0A%0A*STATUS YURAN:* Telah dibayar kepada MOHD AKBAR BIN SABTAR (151155787411). Seterusnya saya akan hantar gambar resit.`;
+    
+    window.open(`https://wa.me/${0178153522}?text=${message}`, '_blank');
+}
+    </script>
 </body>
     </html>
