@@ -292,23 +292,19 @@ document.getElementById('cyberForm').addEventListener('submit', function(e) {
     // Gunakan kod negara 60 di depan
     const adminPhone = "60178153522";
     
-    const text = `⚡ PENDAFTARAN MLBB ONLINE TOURNAMENT ⚡
+    let message = `⚡ PENDAFTARAN MLBB TOURNAMENT ⚡
 
-*NAMA PASUKAN:* 
-*KETUA PASUKAN:* 
-*NO. WHATSAPP:* 
+*NAMA PASUKAN:* ${teamName}
+*KETUA PASUKAN:* ${captainName}
+*NO. WHATSAPP:* ${captainPhone}
+
+*ROSTER PEMAIN:*
+${playerList}
 
 *STATUS BAYARAN:* 
 TELAH BAYAR YURAN MAYBANK (151155787411).
 *SILA SAHKAN SLOT TEAM KAMI ADMIN!*`;
 
-const encodedText = encodeURIComponent(text);
-// Gunakan encodedText ini dalam pautan WhatsApp API anda
-    
-    const encodedMessage = encodeURIComponent(message);
-    
-    setTimeout(function() {
-        window.open(`https://wa.me/${adminPhone}?text=${encodedMessage}`, '_blank');
-    }, 150);
-});
+let encodedMessage = encodeURIComponent(message);
+window.open(`https://wa.me/${adminPhone}?text=${encodedMessage}`, '_blank');
 </script>
