@@ -277,47 +277,35 @@ RESERVE - PLAYER 6 (ID & SERVER)"></textarea>
         }
 
         // Proses Hantar ke WhatsApp Admin (+60 17-815 3522)
-        document.getElementById('cyberForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            playPop();
-
-            const teamName = document.getElementById('NameTeam').value;
-            const captainName = document.getElementById('captainName').value;
-            const captainPhone = document.getElementById('captainPhone').value;
-            const playerList = document.getElementById('playerList').value;
-
-            const adminPhone = "0178153522"; 
-
-            const message = `*⚡ PENDAFTARAN CYBERPUNK MLBB TOURNAMENT ⚡*\n\n` +
-                            `*NAMA PASUKAN:* ${NameTeam}\n` +
-                            `*KETUA PASUKAN:* ${captainName}\n` +
-                            `*NO. WHATSAPP:* ${captainPhone}\n\n` +
-                            `*ROSTER PEMAIN:*\n${playerList}\n\n` +
-                            `*STATUS BAYARAN:* TELAH BAYAR YURAN MAYBANK (MOHD AKBAR BIN SABTAR - 151155787411).\n` +
-                            `_RESIT SCREENSHOT SEDIA DILAMPIRKAN DI BAWAH._\n\n` +
-                            `*SILA SAHKAN SLOT TEAM KAMI ADMIN!*`;
-
-            const encodedMessage = encodeURIComponent(message);
-            window.open(`https://wa.me/${adminPhone}?text=${encodedMessage}`, '_blank');
-        });
-    </script>
-    <script>
-function sendToWhatsApp(event) {
-    event.preventDefault();
+document.getElementById('cyberForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (typeof playPop === 'function') {
+        playPop();
+    }
     
-    // Ambil nilai dari borang anda
-    const teamName = document.getElementById('teamName').value;
-    const captainName = document.getElementById('captainName').value;
-    const captainPhone = document.getElementById('captainPhone').value;
-    const players = document.getElementById('playerList').value;
+    const teamNameInput = document.getElementById('teamName') || document.getElementById('NameTeam');
+    const captainNameInput = document.getElementById('captainName');
+    const captainPhoneInput = document.getElementById('captainPhone');
+    const playerListInput = document.getElementById('playerList');
     
-    // --> TUKAR NOMBOR INI KEPADA NOMBOR WHATSAPP ANDA (Cth: 60123456789) <--
-    const whatsappNumber = "0178153522"; 
+    const teamName = teamNameInput ? teamNameInput.value : 'Tidak dinyatakan';
+    const captainName = captainNameInput ? captainNameInput.value : 'Tidak dinyatakan';
+    const captainPhone = captainPhoneInput ? captainPhoneInput.value : 'Tidak dinyatakan';
+    const playerList = playerListInput ? playerListInput.value : 'Tidak dinyatakan';
     
-    const message = `*PENDAFTARAN TOURNAMENT MLBB*%0A%0ANama Pasukan: ${teamName}%0AKetua (Captain): ${captainName}%0ANo. Tel Kapten: ${captainPhone}%0A%0ASenarai Pemain & ID:%0A${players}%0A%0A*STATUS YURAN:* Telah dibayar kepada MOHD AKBAR BIN SABTAR (151155787411). Seterusnya saya akan hantar gambar resit.`;
+    const adminPhone = "0178153522";
     
-    window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
-}
-    </script>
+    const message = `*⚡ PENDAFTARAN CYBERPUNK MLBB TOURNAMENT ⚡*%0A%0A` +
+                    `*NAMA PASUKAN:* ${teamName}%0A` +
+                    `*KETUA PASUKAN:* ${captainName}%0A` +
+                    `*NO. WHATSAPP:* ${captainPhone}%0A%0A` +
+                    `*ROSTER PEMAIN:*%0A${playerList}%0A%0A` +
+                    `*STATUS BAYARAN:* TELAH BAYAR YURAN MAYBANK (151155787411)._RESIT SCREENSHOT SEDIA DILAMPIRKAN DI BAWAH_%0A` +
+                    `*SILA SAHKAN SLOT TEAM KAMI ADMIN!*`;
+    
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://wa.me/${adminPhone}?text=${encodedMessage}`, '_blank');
+});
+    
 </body>
     </html>
