@@ -3,287 +3,559 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MMS ESPORTS | ONLINE TOURNAMENT</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>MMS Esports - MLBB Online Tournament Registration</title>
     <!-- Google Fonts: Orbitron & Rajdhani -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-red: #ff1e38;
+            --dark-red: #8b0000;
+            --neon-glow: rgba(255, 30, 56, 0.7);
+            --bg-deep: #070709;
+            --bg-panel: rgba(15, 12, 16, 0.85);
+            --border-color: #ff1e3855;
+            --text-light: #f3f4f6;
+            --text-dim: #9ca3af;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
+            background-color: var(--bg-deep);
+            color: var(--text-light);
             font-family: 'Rajdhani', sans-serif;
-            background-color: #050508;
-            color: #ffffff;
+            min-height: 100vh;
             overflow-x: hidden;
-            font-size: 1.1rem;
-        }
-        h1, h2, h3, .cyber-font {
-            font-family: 'Orbitron', sans-serif;
-        }
-        .cyber-card {
-            background: linear-gradient(135deg, rgba(20, 5, 8, 0.95) 0%, rgba(10, 2, 4, 0.98) 100%);
-            border: 2px solid #ff1e38;
-            box-shadow: 0 0 20px rgba(255, 30, 56, 0.3);
             position: relative;
         }
-        .cyber-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 12px; height: 12px;
-            border-top: 3px solid #ff1e38;
-            border-left: 3px solid #ff1e38;
+
+        /* Cyberpunk Grid Background Animation */
+        .cyber-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 30, 56, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 30, 56, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: center center;
+            z-index: -2;
+            animation: gridMove 20s linear infinite;
         }
-        .glitch-btn {
-            background: linear-gradient(135deg, #ff1e38 0%, #b3001b 100%);
-            border: 2px solid #ff4d6d;
-            box-shadow: 0 0 25px rgba(255, 30, 56, 0.7);
-            transition: all 0.2s ease-in-out;
+
+        @keyframes gridMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 40px; }
         }
-        .glitch-btn:hover {
-            background: #ff4d6d;
-            box-shadow: 0 0 35px rgba(255, 77, 109, 0.9);
-            transform: scale(1.02);
+
+        /* Glowing Particles Canvas */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
         }
-        @keyframes pulseGlow {
-            0% { text-shadow: 0 0 10px rgba(255, 30, 56, 0.8), 0 0 20px rgba(255, 30, 56, 0.5); }
-            50% { text-shadow: 0 0 25px rgba(255, 30, 56, 1), 0 0 40px rgba(255, 77, 109, 0.8); }
-            100% { text-shadow: 0 0 10px rgba(255, 30, 56, 0.8), 0 0 20px rgba(255, 30, 56, 0.5); }
+
+        /* Sound Control Floating Button */
+        .sound-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background: rgba(15, 12, 16, 0.9);
+            border: 2px solid var(--primary-red);
+            color: var(--primary-red);
+            padding: 8px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 12px;
+            box-shadow: 0 0 10px var(--neon-glow);
+            transition: all 0.3s ease;
         }
-        .neon-glow {
-            animation: pulseGlow 2s infinite;
+
+        .sound-control:hover {
+            background: var(--primary-red);
+            color: white;
+            box-shadow: 0 0 20px var(--primary-red);
         }
-        .scanline {
-            background: linear-gradient(to bottom, transparent 50%, rgba(255, 0, 0, 0.15) 51%);
-            background-size: 100% 4px;
+
+        /* Main Container */
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
         }
-        .logo-box {
-            width: 90px;
-            height: 90px;
-            border: 2px solid #ff1e38;
-            box-shadow: 0 0 20px rgba(255, 30, 56, 0.7);
+
+        /* Header Section */
+        header {
+            text-align: center;
+            background: var(--bg-panel);
+            border: 2px solid var(--primary-red);
+            border-radius: 16px;
+            padding: 30px 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 0 30px rgba(255, 30, 56, 0.3);
+            position: relative;
+            backdrop-filter: blur(8px);
+        }
+
+        .logo-container {
+            margin-bottom: 15px;
+        }
+
+        .logo-container img {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary-red);
+            box-shadow: 0 0 15px var(--primary-red);
+            animation: pulseLogo 2s infinite alternate;
+        }
+
+        @keyframes pulseLogo {
+            0% { transform: scale(1); box-shadow: 0 0 10px var(--primary-red); }
+            100% { transform: scale(1.05); box-shadow: 0 0 25px var(--primary-red); }
+        }
+
+        header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 26px;
+            font-weight: 900;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--primary-red), 0 0 20px var(--primary-red);
+            margin-bottom: 15px;
+        }
+
+        .credits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .credit-badge {
+            background: rgba(255, 30, 56, 0.1);
+            border: 1px solid var(--border-color);
+            padding: 8px 12px;
+            border-radius: 6px;
+            color: #ff99a8;
+            letter-spacing: 1px;
+        }
+
+        .credit-badge span {
+            color: #fff;
+            font-weight: 700;
+        }
+
+        /* Form Card */
+        .form-card {
+            background: var(--bg-panel);
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            color: var(--primary-red);
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 8px;
+            letter-spacing: 1px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            background: rgba(0, 0, 0, 0.9);
-            margin: 0 auto 20px auto;
+            gap: 10px;
         }
-    </style>
-</head>
-<body class="min-h-screen scanline">
 
-    <!-- Bahagian Borang Pembayaran / Pendaftaran Manual FPX Maybank -->
-<div class="cyber-card" style="padding: 20px; max-width: 500px; margin: 20px auto; border-radius: 8px;">
-    <h3 class="cyber-font" style="color: #ff1e38; margin-bottom: 15px;">BAYARAN MANUAL FPX / MAYBANK2U</h3>
-    
-    <div style="background: rgba(255, 30, 56, 0.1); padding: 12px; border-left: 4px solid #ff1e38; margin-bottom: 20px; font-size: 0.9rem;">
-        <p style="margin: 0 0 5px 0;"><strong>Nama Penerima:</strong> MOHD AKBAR BIN SABTAR</p>
-        <p style="margin: 0 0 5px 0;"><strong>Bank:</strong> MAYBANK</p>
-        <p style="margin: 0;"><strong>No. Akaun:</strong> <span style="color: #ff4d6d; font-weight: bold;">151155787411</span></p>
-    </div>
+        .form-group {
+            margin-bottom: 20px;
+        }
 
-    <form id="fpxForm" onsubmit="submitPayment(event)">
-        <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-size: 0.85rem;">Nama Penuh Pembayar:</label>
-            <input type="text" id="payerName" required style="width: 100%; padding: 10px; background: #0a0a0a; border: 1px solid #ff1e38; color: #fff; border-radius: 4px;" placeholder="Cth: Ahmad bin Ali">
-        </div>
+        label {
+            display: block;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-light);
+            letter-spacing: 0.5px;
+        }
 
-        <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-size: 0.85rem;">Jumlah Bayaran (RM):</label>
-            <input type="number" id="payerAmount" required style="width: 100%; padding: 10px; background: #0a0a0a; border: 1px solid #ff1e38; color: #fff; border-radius: 4px;" placeholder="Cth: 20.00">
-        </div>
+        input[type="text"], input[type="tel"] {
+            width: 100%;
+            background: rgba(10, 8, 12, 0.9);
+            border: 2px solid #33151b;
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: #fff;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
 
-        <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-size: 0.85rem;">Muat Naik Gambar Resit (Screenshot):</label>
-            <input type="file" id="receiptFile" accept="image/*" required style="width: 100%; padding: 8px; background: #0a0a0a; border: 1px solid #ff1e38; color: #fff; border-radius: 4px; font-size: 0.85rem;">
-        </div>
+        input[type="text"]:focus, input[type="tel"]:focus {
+            outline: none;
+            border-color: var(--primary-red);
+            box-shadow: 0 0 15px var(--neon-glow);
+            background: rgba(20, 12, 18, 0.95);
+        }
 
-        <button type="submit" class="glitch-btn" style="width: 100%; padding: 12px; cursor: pointer; text-align: center; font-weight: bold; text-transform: uppercase;">
-            Hantar Bukti Pembayaran
-        </button>
-    </form>
-    
-    <div id="successMsg" style="display: none; margin-top: 15px; color: #00ffcc; text-align: center; font-size: 0.9rem;">
-        Terima kasih! Sila lampirkan gambar resit yang dipilih di WhatsApp nanti.
-    </div>
-</div>
+        /* Players List Styling */
+        .player-row {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 12px;
+        }
 
-<script>
-function submitPayment(event) {
-    event.preventDefault();
-    
-    const name = document.getElementById('payerName').value;
-    const amount = document.getElementById('payerAmount').value;
-    const fileInput = document.getElementById('receiptFile');
-    const fileName = fileInput.files.length > 0 ? fileInput.files[0].name : "Tiada fail";
-    
-    // Tukar nombor di bawah kepada nombor WhatsApp anda
-    const whatsappNumber = "601XXXXXXXX"; 
-    const message = `Halo Admin, saya sudah buat bayaran manual FPX Maybank.%0A%0ANama: ${name}%0AJumlah: RM${amount}%0ANama Fail Resit: ${fileName}%0A(No Acc Penerima: 151155787411 - MOHD AKBAR BIN SABTAR)%0A%0A*Nota: Saya akan hantar gambar resit selepas ini.*`;
-    
-    document.getElementById('successMsg').style.display = 'block';
-    
-    setTimeout(() => {
-        window.open(`https://wa.me/${0178153522}?text=${message}`, '_blank');
-    }, 1000);
-}
-</script>
-
-    <!-- Navigasi Cyberpunk -->
-    <nav class="bg-black/95 border-b-2 border-red-600 sticky top-0 z-50 px-6 py-4 flex justify-between items-center backdrop-blur-md">
-        <div class="flex items-center gap-3">
-            <span class="text-xl md:text-2xl font-black text-red-500 cyber-font tracking-widest neon-glow">MMS // ESPORTS</span>
-        </div>
-        <div class="space-x-6 text-base md:text-lg font-bold cyber-font tracking-wider">
-            <a href="#home" onclick="playPop()" class="text-red-500 hover:text-white transition">UTAMA</a>
-            <a href="#info" onclick="playPop()" class="text-gray-300 hover:text-red-500 transition">INFO</a>
-            <a href="#register" onclick="playPop()" class="text-gray-300 hover:text-red-500 transition">DAFTAR</a>
-        </div>
-    </nav>
-
-    <!-- Header / Hero Section -->
-    <header id="home" class="max-w-4xl mx-auto px-4 py-16 text-center">
-        <!-- Logo MMS Esports -->
-        <div class="logo-box rounded-lg neon-glow overflow-hidden p-1">
-            <img <img src="ManaManaSandar%2020260825_220527.jpg" alt="Logo MMS Esports" style="width: 65px; height: 65px; border-radius: 50%; object-fit: cover; border: 2px solid #ef4444;">
-        </div>
-
-        <span class="bg-red-950/90 text-red-400 border border-red-600 text-sm px-5 py-1.5 rounded cyber-font uppercase tracking-widest font-bold">SYSTEM ONLINE: MLBB TOURNAMENT</span>
-        <h1 class="text-4xl md:text-7xl font-black mt-6 tracking-wider text-white cyber-font neon-glow uppercase">
-            MMS <span class="text-red-600">OPEN CUP</span>
-        </h1>
-        <p class="text-gray-300 mt-4 max-w-xl mx-auto text-lg md:text-xl font-bold uppercase tracking-wide">
-            MASUK KE ARENA PERTARUNGAN SIBER 5V5. BUKTIKAN DOMINASI PASUKAN ANDA DAN REBUT TAKHTA KEJUARAAN!
-        </p>
-        
-        <div class="mt-8 flex justify-center gap-4">
-            <a href="#register" onclick="playPop()" class="glitch-btn text-white font-black px-8 py-4 rounded uppercase tracking-widest cyber-font text-base md:text-lg">
-                ⚡ DAFTAR SEKARANG
-            </a>
-        </div>
-    </header>
-
-    <!-- Maklumat & Organisasi -->
-    <section id="info" class="max-w-5xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="cyber-card p-6 md:p-8 rounded-lg">
-            <h3 class="text-xl font-black text-red-500 cyber-font mb-4 flex items-center gap-2 uppercase">
-                <span>🔴</span> MAKLUMAT ASAS
-            </h3>
-            <ul class="space-y-3 text-base md:text-lg text-gray-200 font-bold uppercase">
-                <li>• <strong>ORGANISASI:</strong> MMS ESPORTS</li>
-                <li>• <strong>FORMAT:</strong> 5V5 CUSTOM DRAFT PICK</li>
-                <li>• <strong>FOUNDER:</strong> SUPERBRAIN</li>
-                <li>• <strong>STAF:</strong> SPONSOR (MIFZAL) | ORGANIZER/EDITOR (HABIB)</li>
-            </ul>
-        </div>
-        
-        <div class="cyber-card p-6 md:p-8 rounded-lg border-red-600">
-            <h3 class="text-xl font-black text-red-500 cyber-font mb-4 flex items-center gap-2 uppercase">
-                <span>💳</span> PEMBAYARAN YURAN (MAYBANK)
-            </h3>
-            <div class="bg-black/80 p-5 rounded border border-red-900 text-base md:text-lg space-y-3 uppercase font-bold">
-                <p><strong>NAMA:</strong> MOHD AKBAR BIN SABTAR</p>
-                <p><strong>BANK:</strong> MAYBANK</p>
-                <p><strong>NO. AKAUN:</strong> <span class="text-red-400 font-mono font-black text-xl">151155787411</span></p>
-            </div>
-            <p class="text-xs md:text-sm text-red-400 mt-4 font-bold uppercase tracking-wider">⚠️ WAJIB: SIMPAN SCREENSHOT RESIT BAYARAN UNTUK DITUNJUKKAN KEPADA ADMIN DALAM WHATSAPP.</p>
-        </div>
-    </section>
-
-    <!-- Borang Pendaftaran WhatsApp -->
-    <section id="register" class="max-w-2xl mx-auto px-4 py-12">
-        <div class="cyber-card p-6 md:p-10 rounded-lg shadow-2xl">
-            <h2 class="text-2xl md:text-3xl font-black text-center text-red-500 cyber-font mb-8 neon-glow uppercase">
-                        <div class="form-container">
-        <h2>BORANG PENDAFTARAN PASUKAN</h2>
-        <form id="cyberForm">
-            
-            <div class="form-group">
-                <label>NAMA PASUKAN (TEAM NAME)</label>
-                <input type="text" id="teamName" required placeholder="CONTOH: ESPORTS TEAM">
-            </div>
-
-            <div class="form-group">
-                <label>NAMA KETUA (CAPTAIN)</label>
-                <input type="text" id="captainName" required placeholder="NAMA KAPTEN">
-            </div>
-
-            <div class="form-group">
-                <label>NO. WHATSAPP KAPTEN</label>
-                <input type="text" id="captainPhone" required value="60178153522">
-            </div>
-
-            <div class="form-group">
-                <label>SENARAI PEMAIN & ID ML (SERVER)</label>
-                <textarea id="playerList" rows="6" required placeholder="JUNGLER - PLAYER 1 (ID & SERVER)&#10;EXP - PLAYER 2 (ID & SERVER)&#10;GOLD - PLAYER 3 (ID & SERVER)&#10;MID - PLAYER 4 (ID & SERVER)&#10;ROAM - PLAYER 5 (ID & SERVER)&#10;RESERVE - PLAYER 6 (ID & SERVER)"></textarea>
-            </div>
-
-            <div class="checkbox-group">
-                <input type="checkbox" id="paymentCheck" required>
-                <label for="paymentCheck">SAYA MENGESAHKAN YURAN MAYBANK TELAH DIBAYAR KEPADA MOHD AKBAR BIN SABTAR (151155787411) DAN RESIT SCREENSHOT SEDIA DILAMPIRKAN DI WHATSAPP.</label>
-            </div>
-
-            <button type="submit">🚀 HANTAR PENDAFTARAN VIA WHATSAPP</button>
-        </form>
-    </div>
-
-    <!-- Audio Effect Pop Generator menggunakan Web Audio API (Tanpa perlukan fail audio luaran) -->
-    <script>
-        function playPopSound() {
-            try {
-                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                const oscillator = audioCtx.createOscillator();
-                const gainNode = audioCtx.createGain();
-
-                oscillator.type = 'sine';
-                // Kesan bunyi pop menaik
-                oscillator.frequency.setValueAtTime(400, audioCtx.currentTime);
-                oscillator.frequency.exponentialRampToValueAtTime(800, audioCtx.currentTime + 0.08);
-
-                gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
-
-                oscillator.connect(gainNode);
-                gainNode.connect(audioCtx.destination);
-
-                oscillator.start();
-                oscillator.stop(audioCtx.currentTime + 0.08);
-            } catch (e) {
-                console.log("Audio error:", e);
+        @media (max-width: 600px) {
+            .player-row {
+                grid-template-columns: 1fr;
+                gap: 5px;
             }
         }
 
-        document.getElementById('cyberForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        .role-label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: #ff99a8;
+            background: rgba(255, 30, 56, 0.08);
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
 
-            // Mainkan bunyi pop serta-merta apabila ditekan
+        /* Payment Section Box */
+        .payment-box {
+            background: linear-gradient(135deg, rgba(30, 10, 15, 0.9), rgba(15, 12, 16, 0.9));
+            border: 2px dashed var(--primary-red);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .payment-info {
+            font-size: 18px;
+            font-weight: 700;
+            margin: 8px 0;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+
+        .payment-info span {
+            color: var(--primary-red);
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .payment-note {
+            font-size: 14px;
+            color: var(--text-dim);
+            margin-top: 10px;
+        }
+
+        /* Submit Button */
+        .btn-submit {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, #cc1128, var(--primary-red));
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 30, 56, 0.5);
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .btn-submit:hover {
+            background: linear-gradient(135deg, var(--primary-red), #ff4d63);
+            box-shadow: 0 0 35px var(--primary-red);
+            transform: translateY(-2px);
+        }
+
+        .btn-submit:active {
+            transform: translateY(1px);
+        }
+
+        footer {
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-dim);
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cyberpunk Background Layers -->
+    <div class="cyber-grid"></div>
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Sound Control Toggle -->
+    <button id="soundToggle" class="sound-control" onclick="toggleSound()">SOUND: ON</button>
+
+    <div class="container">
+        <!-- Header Section -->
+        <header>
+            <div class="logo-container">
+                <img src="ManaManaSandar%2020260825_220527.jpg" alt="Logo MMS Esports">
+            </div>
+            <h1>MMS ESPORTS ONLINE TOURNAMENT</h1>
+            <div class="credits-grid">
+                <div class="credit-badge">FOUNDER: <span>SUPERBRAIN</span></div>
+                <div class="credit-badge">SPONSOR: <span>MIFZAL</span></div>
+                <div class="credit-badge">ORGANIZER/EDITOR: <span>HABIB</span></div>
+            </div>
+        </header>
+
+        <!-- Registration Form -->
+        <div class="form-card">
+            <div class="section-title">⚡ BORANG PENDAFTARAN TEAM</div>
+            
+            <form id="tournamentForm" onsubmit="submitToWhatsApp(event)">
+                <div class="form-group">
+                    <label for="teamName">NAMA TEAM</label>
+                    <input type="text" id="teamName" required placeholder="Masukkan Nama Team Anda">
+                </div>
+
+                <div class="form-group">
+                    <label for="captainName">NAMA CAPTAIN</label>
+                    <input type="text" id="captainName" required placeholder="Nama Penuh Captain">
+                </div>
+
+                <div class="form-group">
+                    <label for="captainWhatsapp">NO WHATSAPP CAPTAIN</label>
+                    <input type="tel" id="captainWhatsapp" required placeholder="Cth: 0178153522">
+                </div>
+
+                <div class="section-title" style="margin-top: 30px;">🎮 SENARAI PEMAIN & ID SERVER ML</div>
+
+                <div class="form-group player-row">
+                    <div class="role-label">JUNGLER (1)</div>
+                    <input type="text" id="p1" required placeholder="Nama Pemain | ID & Server (Cth: Ali | 12345678 (2001))">
+                </div>
+
+                <div class="form-group player-row">
+                    <div class="role-label">ROAMER (2)</div>
+                    <input type="text" id="p2" required placeholder="Nama Pemain | ID & Server">
+                </div>
+
+                <div class="form-group player-row">
+                    <div class="role-label">MIDLANER (3)</div>
+                    <input type="text" id="p3" required placeholder="Nama Pemain | ID & Server">
+                </div>
+
+                <div class="form-group player-row">
+                    <div class="role-label">EXPLANER (4)</div>
+                    <input type="text" id="p4" required placeholder="Nama Pemain | ID & Server">
+                </div>
+
+                <div class="form-group player-row">
+                    <div class="role-label">GOLDLANER (5)</div>
+                    <input type="text" id="p5" required placeholder="Nama Pemain | ID & Server">
+                </div>
+
+                <div class="form-group player-row">
+                    <div class="role-label">RESERVE (6)</div>
+                    <input type="text" id="p6" placeholder="Role & Nama | ID & Server (Optional)">
+                </div>
+
+                <div class="section-title" style="margin-top: 30px;">💳 PEMBAYARAN MANUAL (PAY GATEWAY FPX)</div>
+                <div class="payment-box">
+                    <div class="payment-info">BANK: <span>MAYBANK</span></div>
+                    <div class="payment-info">NAMA: <span>MOHD AKBAR BIN SABTAR</span></div>
+                    <div class="payment-info">NO AKAUN: <span>151155787411</span></div>
+                    <div class="payment-note">⚠️ Selepas pembayaran dibuat, sila hantar resit screenshot dekat WhatsApp <strong>0178153522</strong> bersama borang ini.</div>
+                </div>
+
+                <button type="submit" class="btn-submit">HANTAR BORANG KE WHATSAPP</button>
+            </form>
+        </div>
+
+        <footer>
+            &copy; 2026 MMS Esports. All Rights Reserved. Powered by Cyber Red Engine.
+        </footer>
+    </div>
+
+    <!-- JavaScript & Audio / Particle Effects -->
+    <script>
+        // --- Web Audio API Pop Sound Effect ---
+        let soundEnabled = true;
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playPopSound() {
+            if (!soundEnabled) return;
+            try {
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                const osc = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+
+                osc.type = 'sine';
+                // Frequency sweep for futuristic pop click
+                osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(800, audioCtx.currentTime + 0.08);
+
+                gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+
+                osc.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.08);
+            } catch (e) {
+                console.error("Audio error:", e);
+            }
+        }
+
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            const btn = document.getElementById('soundToggle');
+            btn.textContent = soundEnabled ? "SOUND: ON" : "SOUND: OFF";
+            playPopSound();
+        }
+
+        // Add pop sound listeners to inputs and buttons
+        document.querySelectorAll('input, button').forEach(element => {
+            element.addEventListener('click', playPopSound);
+            element.addEventListener('focus', playPopSound);
+        });
+
+        // --- Particle Animation Background ---
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        const particlesArray = [];
+        const numberOfParticles = 45;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2.5 + 1;
+                this.speedX = (Math.random() - 0.5) * 0.8;
+                this.speedY = (Math.random() - 0.5) * 0.8 - 0.2;
+                this.alpha = Math.random() * 0.7 + 0.2;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            draw() {
+                ctx.fillStyle = `rgba(255, 30, 56, ${this.alpha})`;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = '#ff1e38';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.shadowBlur = 0; // reset
+            }
+        }
+
+        function initParticles() {
+            particlesArray.length = 0;
+            for (let i = 0; i < numberOfParticles; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
+        initParticles();
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particlesArray.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // --- WhatsApp Form Submission Generator ---
+        function submitToWhatsApp(event) {
+            event.preventDefault();
             playPopSound();
 
-            let teamName = document.getElementById('teamName').value;
-            let captainName = document.getElementById('captainName').value;
-            let captainPhone = document.getElementById('captainPhone').value;
-            let playerList = document.getElementById('playerList').value;
+            const teamName = document.getElementById('teamName').value.trim();
+            const captainName = document.getElementById('captainName').value.trim();
+            const captainWhatsapp = document.getElementById('captainWhatsapp').value.trim();
+            
+            const p1 = document.getElementById('p1').value.trim();
+            const p2 = document.getElementById('p2').value.trim();
+            const p3 = document.getElementById('p3').value.trim();
+            const p4 = document.getElementById('p4').value.trim();
+            const p5 = document.getElementById('p5').value.trim();
+            const p6 = document.getElementById('p6').value.trim() || 'Tiada';
 
-            let adminPhone = "60178153522";
+            const message = `*BORANG PENDAFTARAN MLBB ONLINE TOURNAMENT*
+*MMS ESPORTS (SPONSORED BY MIFZAL)*
 
-            let message = `⚡ PENDAFTARAN MLBB ONLINE TOURNAMENT ⚡
+📌 *NAMA TEAM:* ${teamName}
+👤 *NAMA CAPTAIN:* ${captainName}
+📱 *NO WHATSAPP:* ${captainWhatsapp}
 
-*NAMA PASUKAN:* ${teamName}
-*KETUA PASUKAN:* ${captainName}
-*NO. WHATSAPP:* ${captainPhone}
+⚔️ *SENARAI PEMAIN & ID SERVER:*
+1. JUNGLER: ${p1}
+2. ROAMER: ${p2}
+3. MIDLANER: ${p3}
+4. EXPLANER: ${p4}
+5. GOLDLANER: ${p5}
+6. RESERVE: ${p6}
 
-*ROSTER PEMAIN:*
-${playerList}
+💳 *STATUS PEMBAYARAN:*
+[ Telah / Akan membuat pembayaran manual Maybank: 151155787411 - Mohd Akbar Bin Sabtar ]
+📸 Sila rujuk lampiran resit WhatsApp selepas ini.`;
 
-*STATUS BAYARAN:* 
-TELAH BAYAR YURAN MAYBANK KEPADA MOHD AKBAR BIN SABTAR (151155787411). RESIT SCREENSHOT SEDIA DILAMPIRKAN DI BAWAH.
-*SILA SAHKAN SLOT TEAM KAMI ADMIN!*`;
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/60178153522?text=${encodedMessage}`;
 
-            let encodedMessage = encodeURIComponent(message);
-
-            // Beri sedikit masa untuk bunyi pop kedengaran sebelum buka WhatsApp
-            setTimeout(function() {
-                window.open(`https://wa.me/${adminPhone}?text=${encodedMessage}`, '_blank');
-            }, 150);
-        });
+            // Open WhatsApp with formatted details
+            window.open(whatsappUrl, '_blank');
+        }
     </script>
 </body>
-            </html>
+    </html>
