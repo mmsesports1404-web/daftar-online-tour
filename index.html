@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MMS ESPORTS | CYBERPUNK TOURNAMENT</title>
+    <title>MMS ESPORTS | ONLINE TOURNAMENT</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Orbitron & Rajdhani -->
@@ -292,13 +292,18 @@ document.getElementById('cyberForm').addEventListener('submit', function(e) {
     // Gunakan kod negara 60 di depan
     const adminPhone = "60178153522";
     
-    const message = `*⚡ PENDAFTARAN CYBERPUNK MLBB TOURNAMENT ⚡*%0A%0A` +
-                    `*NAMA PASUKAN:* ${teamName}%0A` +
-                    `*KETUA PASUKAN:* ${captainName}%0A` +
-                    `*NO. WHATSAPP:* ${captainPhone}%0A%0A` +
-                    `*ROSTER PEMAIN:*%0A${playerList}%0A%0A` +
-                    `*STATUS BAYARAN:* TELAH BAYAR YURAN MAYBANK (151155787411)._RESIT SCREENSHOT SEDIA DILAMPIRKAN DI BAWAH_%0A` +
-                    `*SILA SAHKAN SLOT TEAM KAMI ADMIN!*`;
+    const text = `⚡ PENDAFTARAN MLBB ONLINE TOURNAMENT ⚡
+
+*NAMA PASUKAN:* 
+*KETUA PASUKAN:* 
+*NO. WHATSAPP:* 
+
+*STATUS BAYARAN:* 
+TELAH BAYAR YURAN MAYBANK (151155787411).
+*SILA SAHKAN SLOT TEAM KAMI ADMIN!*`;
+
+const encodedText = encodeURIComponent(text);
+// Gunakan encodedText ini dalam pautan WhatsApp API anda
     
     const encodedMessage = encodeURIComponent(message);
     
