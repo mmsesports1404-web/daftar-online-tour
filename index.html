@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MMS Esports | MLBB Tournament</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; background-color: #0b0f19; color: #ffffff; }
+        .gaming-card { background: linear-gradient(135deg, #161f30 0%, #0f172a 100%); border: 1px solid #1e293b; }
+        .glow-btn { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); transition: all 0.3s ease; }
+        .glow-btn:hover { box-shadow: 0 0 20px rgba(245, 158, 11, 0.6); }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- Navigasi -->
+    <nav class="bg-slate-950/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50 px-6 py-4 flex justify-between items-center">
+        <div class="text-xl font-black text-amber-400 tracking-wider">MMS ESPORTS</div>
+        <div class="space-x-4 text-sm font-semibold">
+            <a href="index.html" class="text-amber-400">Utama</a>
+            <a href="register.html" class="text-gray-300 hover:text-amber-400">Daftar</a>
+            <a href="schedule.html" class="text-gray-300 hover:text-amber-400">Jadual</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="max-w-4xl mx-auto px-4 py-16 text-center">
+        <span class="bg-amber-500/10 text-amber-400 border border-amber-500/30 text-xs px-3 py-1 rounded-full font-semibold uppercase tracking-wider">Official Tournament Season 1</span>
+        <h1 class="text-4xl md:text-6xl font-black mt-4 tracking-wide text-white">MMS MLBB OPEN CUP</h1>
+        <p class="text-gray-400 mt-4 max-w-xl mx-auto text-sm md:text-base">Buktikan kehebatan pasukan korang di arena Mobile Legends. Rebut hadiah terkumpul lumayan sekarang!</p>
+        
+        <div class="mt-8 flex justify-center gap-4">
+            <a href="register.html" class="glow-btn text-slate-950 font-bold px-8 py-3 rounded-xl uppercase tracking-wider text-sm shadow-lg">Daftar Sekarang</a>
+            <a href="schedule.html" class="bg-slate-800 hover:bg-slate-700 text-white font-bold px-8 py-3 rounded-xl uppercase tracking-wider text-sm border border-slate-700">Lihat Jadual</a>
+        </div>
+    </header>
+
+    <!-- Info & Hadiah -->
+    <section class="max-w-5xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="gaming-card p-6 rounded-2xl">
+            <h3 class="text-lg font-bold text-amber-400 mb-3">📌 Maklumat Ringkas</h3>
+            <ul class="space-y-2 text-sm text-gray-300">
+                <li>• **Format:** 5v5 Custom Draft Pick</li>
+                <li>• **Yuran:** RMxx per team (Bayar via Maybank)</li>
+                <li>• **Slot:** Terhad kepada 16 / 32 Pasukan</li>
+                <li>• **Penganjur:** MMS Esports (Superbrain & Team)</li>
+            </ul>
+        </div>
+        <div class="gaming-card p-6 rounded-2xl">
+            <h3 class="text-lg font-bold text-amber-400 mb-3">🏆 Hadiah Terkumpul (Prize Pool)</h3>
+            <ul class="space-y-2 text-sm text-gray-300">
+                <li>🥇 **Juara:** Wang Tunai + Trofi + E-Sijil</li>
+                <li>🥈 **Naib Juara:** Wang Tunai + E-Sijil</li>
+                <li>🥉 **Tempat Ketiga:** Wang Tunai + E-Sijil</li>
+            </ul>
+        </div>
+    </section>
+
+</body>
+  </html>
