@@ -92,8 +92,8 @@
         </div>
 
         <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-size: 0.85rem;">Rujukan / No. Resit Transaksi:</label>
-            <input type="text" id="payerRef" required style="width: 100%; padding: 10px; background: #0a0a0a; border: 1px solid #ff1e38; color: #fff; border-radius: 4px;" placeholder="Cth: M2U123456789">
+            <label style="display: block; margin-bottom: 5px; font-size: 0.85rem;">Muat Naik Gambar Resit (Screenshot):</label>
+            <input type="file" id="receiptFile" accept="image/*" required style="width: 100%; padding: 8px; background: #0a0a0a; border: 1px solid #ff1e38; color: #fff; border-radius: 4px; font-size: 0.85rem;">
         </div>
 
         <button type="submit" class="glitch-btn" style="width: 100%; padding: 12px; cursor: pointer; text-align: center; font-weight: bold; text-transform: uppercase;">
@@ -102,7 +102,7 @@
     </form>
     
     <div id="successMsg" style="display: none; margin-top: 15px; color: #00ffcc; text-align: center; font-size: 0.9rem;">
-        Terima kasih! Maklumat pembayaran anda telah direkodkan. Sila pastikan anda membuat pindahan wang ke akaun di atas.
+        Terima kasih! Sila lampirkan gambar resit yang dipilih di WhatsApp nanti.
     </div>
 </div>
 
@@ -110,25 +110,22 @@
 function submitPayment(event) {
     event.preventDefault();
     
-    // Ambil nilai dari borang
     const name = document.getElementById('payerName').value;
     const amount = document.getElementById('payerAmount').value;
-    const ref = document.getElementById('payerRef').value;
+    const fileInput = document.getElementById('receiptFile');
+    const fileName = fileInput.files.length > 0 ? fileInput.files[0].name : "Tiada fail";
     
-    // Anda boleh sambungkan ini ke WhatsApp atau simpan data
-    // Contoh sambungan terus ke WhatsApp admin (Raihan):
-    const whatsappNumber = "601XXXXXXXX"; // Tukar kepada nombor WhatsApp anda
-    const message = `Halo Admin, saya sudah buat bayaran manual FPX Maybank.%0A%0ANama: ${name}%0AJumlah: RM${amount}%0ANo. Rujukan: ${ref}%0A(No Acc Penerima: 151155787411 - MOHD AKBAR BIN SABTAR)`;
+    // Tukar nombor di bawah kepada nombor WhatsApp anda
+    const whatsappNumber = "601XXXXXXXX"; 
+    const message = `Halo Admin, saya sudah buat bayaran manual FPX Maybank.%0A%0ANama: ${name}%0AJumlah: RM${amount}%0ANama Fail Resit: ${fileName}%0A(No Acc Penerima: 151155787411 - MOHD AKBAR BIN SABTAR)%0A%0A*Nota: Saya akan hantar gambar resit selepas ini.*`;
     
-    // Paparkan mesej berjaya
     document.getElementById('successMsg').style.display = 'block';
     
-    // Buka WhatsApp automatik (pilihan)
     setTimeout(() => {
         window.open(`https://wa.me/${0178153522}?text=${message}`, '_blank');
     }, 1000);
 }
-    </script>
+</script>
 
     <!-- Navigasi Cyberpunk -->
     <nav class="bg-black/95 border-b-2 border-red-600 sticky top-0 z-50 px-6 py-4 flex justify-between items-center backdrop-blur-md">
