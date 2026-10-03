@@ -242,46 +242,42 @@ RESERVE - PLAYER 6 (ID & SERVER)"></textarea>
     </footer>
 
     <!-- Script Sistem Bunyi Digital Terus (Web Audio API) -->
-    <script>
-        // Penjana Bunyi Digital (Tidak perlu fail luar, 100% pasti berfungsi di semua telefon)
-        let audioCtx = null;
+<script>
+let audioCtx = null;
 
-        function playPop() {
-            try {
-                if (!audioCtx) {
-                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                }
-                if (audioCtx.state === 'suspended') {
-                    audioCtx.resume();
-                }
-
-                const osc = audioCtx.createOscillator();
-                const gainNode = audioCtx.createGain();
-
-                osc.type = 'sine';
-                // Kesan bunyi pop sci-fi pendek (turun frekuensi dari 600Hz ke 200Hz)
-                osc.frequency.setValueAtTime(600, audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(200, audioCtx.currentTime + 0.08);
-
-                gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
-
-                osc.connect(gainNode);
-                gainNode.connect(audioCtx.destination);
-
-                osc.start();
-                osc.stop(audioCtx.currentTime + 0.08);
-            } catch (e) {
-                console.log("Audio error:", e);
-            }
+function playPop() {
+    try {
+        if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
         }
 
-        // Proses Hantar ke WhatsApp Admin (+60 17-815 3522)
+        const osc = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(500, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(800, audioCtx.currentTime + 0.08);
+
+        gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+
+        osc.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.08);
+    } catch (e) {
+        console.log("Audio error:", e);
+    }
+}
+
 document.getElementById('cyberForm').addEventListener('submit', function(e) {
     e.preventDefault();
-    if (typeof playPop === 'function') {
-        playPop();
-    }
+    
+    playPop();
     
     const teamNameInput = document.getElementById('teamName') || document.getElementById('NameTeam');
     const captainNameInput = document.getElementById('captainName');
@@ -304,8 +300,9 @@ document.getElementById('cyberForm').addEventListener('submit', function(e) {
                     `*SILA SAHKAN SLOT TEAM KAMI ADMIN!*`;
     
     const encodedMessage = encodeURIComponent(message);
-    window.open(`https://wa.me/${adminPhone}?text=${encodedMessage}`, '_blank');
-});
     
-</body>
-    </html>
+    setTimeout(function() {
+        window.open(`https://wa.me/${adminPhone}?text=${encodedMessage}`, '_blank');
+    }, 150);
+});
+</script>
