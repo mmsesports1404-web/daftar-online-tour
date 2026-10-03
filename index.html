@@ -198,7 +198,7 @@ function submitPayment(event) {
             <form id="cyberForm" class="space-y-6">
                 <div>
                     <label class="block text-sm uppercase cyber-font text-red-400 mb-2 font-bold tracking-wider">NAMA PASUKAN (TEAM NAME)</label>
-                    <input type="text" id="teamName" required oninput="playPop()" class="w-full bg-black border-2 border-red-800 rounded px-4 py-3 text-white text-lg focus:outline-none focus:border-red-500 font-bold uppercase" placeholder="CONTOH: MMS LEGENDS">
+                    <input type="text" id="teamName" required oninput="playPop()" class="w-full bg-black border-2 border-red-800 rounded px-4 py-3 text-white text-lg focus:outline-none focus:border-red-500 font-bold uppercase" placeholder="CONTOH: ESPORTS TEAM">
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -281,7 +281,7 @@ RESERVE - PLAYER 6 (ID & SERVER)"></textarea>
             e.preventDefault();
             playPop();
 
-            const teamName = document.getElementById('EsportsTeam').value;
+            const teamName = document.getElementById('NameTeam').value;
             const captainName = document.getElementById('captainName').value;
             const captainPhone = document.getElementById('captainPhone').value;
             const playerList = document.getElementById('playerList').value;
@@ -289,7 +289,7 @@ RESERVE - PLAYER 6 (ID & SERVER)"></textarea>
             const adminPhone = "60178153522"; 
 
             const message = `*⚡ PENDAFTARAN CYBERPUNK MLBB TOURNAMENT ⚡*\n\n` +
-                            `*NAMA PASUKAN:* ${EsportsTeam}\n` +
+                            `*NAMA PASUKAN:* ${NameTeam}\n` +
                             `*KETUA PASUKAN:* ${captainName}\n` +
                             `*NO. WHATSAPP:* ${captainPhone}\n\n` +
                             `*ROSTER PEMAIN:*\n${playerList}\n\n` +
