@@ -192,107 +192,79 @@ function submitPayment(event) {
     <section id="register" class="max-w-2xl mx-auto px-4 py-12">
         <div class="cyber-card p-6 md:p-10 rounded-lg shadow-2xl">
             <h2 class="text-2xl md:text-3xl font-black text-center text-red-500 cyber-font mb-8 neon-glow uppercase">
-                BORANG PENDAFTARAN PASUKAN
-            </h2>
+                        <div class="form-container">
+        <h2>BORANG PENDAFTARAN PASUKAN</h2>
+        <form id="cyberForm">
+            
+            <div class="form-group">
+                <label>NAMA PASUKAN (TEAM NAME)</label>
+                <input type="text" id="teamName" required placeholder="CONTOH: ESPORTS TEAM">
+            </div>
 
-            <form id="cyberForm" class="space-y-6">
-                <div>
-                    <label class="block text-sm uppercase cyber-font text-red-400 mb-2 font-bold tracking-wider">NAMA PASUKAN (TEAM NAME)</label>
-                    <input type="text" id="teamName" required oninput="playPop()" class="w-full bg-black border-2 border-red-800 rounded px-4 py-3 text-white text-lg focus:outline-none focus:border-red-500 font-bold uppercase" placeholder="CONTOH: ESPORTS TEAM">
-                </div>
+            <div class="form-group">
+                <label>NAMA KETUA (CAPTAIN)</label>
+                <input type="text" id="captainName" required placeholder="NAMA KAPTEN">
+            </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm uppercase cyber-font text-red-400 mb-2 font-bold tracking-wider">NAMA KETUA (CAPTAIN)</label>
-                        <input type="text" id="captainName" required oninput="playPop()" class="w-full bg-black border-2 border-red-800 rounded px-4 py-3 text-white text-base focus:outline-none focus:border-red-500 font-bold uppercase" placeholder="NAMA KAPTEN">
-                    </div>
-                    <div>
-                        <label class="block text-sm uppercase cyber-font text-red-400 mb-2 font-bold tracking-wider">NO. WHATSAPP KAPTEN</label>
-                        <input type="tel" id="captainPhone" required oninput="playPop()" class="w-full bg-black border-2 border-red-800 rounded px-4 py-3 text-white text-base focus:outline-none focus:border-red-500 font-bold uppercase" placeholder="60123456789">
-                    </div>
-                </div>
+            <div class="form-group">
+                <label>NO. WHATSAPP KAPTEN</label>
+                <input type="text" id="captainPhone" required value="60178153522">
+            </div>
 
-                <div>
-                    <label class="block text-sm uppercase cyber-font text-red-400 mb-2 font-bold tracking-wider">SENARAI PEMAIN & ID ML (SERVER)</label>
-                    <textarea id="playerList" rows="6" required oninput="playPop()" class="w-full bg-black border-2 border-red-800 rounded px-4 py-3 text-white text-sm focus:outline-none focus:border-red-500 font-mono font-bold uppercase" placeholder="JUNGLER - PLAYER 1 (ID & SERVER)
-EXP - PLAYER 2 (ID & SERVER)
-GOLD - PLAYER 3 (ID & SERVER)
-MID - PLAYER 4 (ID & SERVER)
-ROAM - PLAYER 5 (ID & SERVER)
-RESERVE - PLAYER 6 (ID & SERVER)"></textarea>
-                </div>
+            <div class="form-group">
+                <label>SENARAI PEMAIN & ID ML (SERVER)</label>
+                <textarea id="playerList" rows="6" required placeholder="JUNGLER - PLAYER 1 (ID & SERVER)&#10;EXP - PLAYER 2 (ID & SERVER)&#10;GOLD - PLAYER 3 (ID & SERVER)&#10;MID - PLAYER 4 (ID & SERVER)&#10;ROAM - PLAYER 5 (ID & SERVER)&#10;RESERVE - PLAYER 6 (ID & SERVER)"></textarea>
+            </div>
 
-                <div class="bg-red-950/60 p-5 rounded border-2 border-red-900">
-                    <label class="flex items-start space-x-3 cursor-pointer">
-                        <input type="checkbox" id="receiptCheck" required onclick="playPop()" class="w-6 h-6 mt-1 accent-red-600 bg-black border-red-700 rounded">
-                        <span class="text-sm md:text-base text-gray-200 font-bold uppercase leading-relaxed">Saya mengesahkan yuran Maybank telah dibayar kepada <strong>MOHD AKBAR BIN SABTAR (151155787411)</strong> dan resit screenshot sedia dilampirkan di WhatsApp.</span>
-                    </label>
-                </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="paymentCheck" required>
+                <label for="paymentCheck">SAYA MENGESAHKAN YURAN MAYBANK TELAH DIBAYAR KEPADA MOHD AKBAR BIN SABTAR (151155787411) DAN RESIT SCREENSHOT SEDIA DILAMPIRKAN DI WHATSAPP.</label>
+            </div>
 
-                <button type="submit" onclick="playPop()" class="w-full glitch-btn text-white font-black py-4 rounded text-center uppercase tracking-widest cyber-font text-lg md:text-xl shadow-2xl">
-                    🚀 HANTAR PENDAFTARAN VIA WHATSAPP
-                </button>
-            </form>
-        </div>
-    </section>
+            <button type="submit">🚀 HANTAR PENDAFTARAN VIA WHATSAPP</button>
+        </form>
+    </div>
 
-    <!-- Footer -->
-    <footer class="text-center py-8 text-sm text-gray-400 border-t-2 border-red-950 mt-12 cyber-font font-bold uppercase">
-        © 2026 MMS ESPORTS. ALL RIGHTS RESERVED. POWERED BY CYBERNET.
-    </footer>
+    <!-- Audio Effect Pop Generator menggunakan Web Audio API (Tanpa perlukan fail audio luaran) -->
+    <script>
+        function playPopSound() {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
 
-    <!-- Script Sistem Bunyi Digital Terus (Web Audio API) -->
-<script>
-let audioCtx = null;
+                oscillator.type = 'sine';
+                // Kesan bunyi pop menaik
+                oscillator.frequency.setValueAtTime(400, audioCtx.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(800, audioCtx.currentTime + 0.08);
 
-function playPop() {
-    try {
-        if (!audioCtx) {
-            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        }
-        if (audioCtx.state === 'suspended') {
-            audioCtx.resume();
+                gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+
+                oscillator.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+
+                oscillator.start();
+                oscillator.stop(audioCtx.currentTime + 0.08);
+            } catch (e) {
+                console.log("Audio error:", e);
+            }
         }
 
-        const osc = audioCtx.createOscillator();
-        const gainNode = audioCtx.createGain();
+        document.getElementById('cyberForm').addEventListener('submit', function(e) {
+            e.preventDefault();
 
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(500, audioCtx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(800, audioCtx.currentTime + 0.08);
+            // Mainkan bunyi pop serta-merta apabila ditekan
+            playPopSound();
 
-        gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+            let teamName = document.getElementById('teamName').value;
+            let captainName = document.getElementById('captainName').value;
+            let captainPhone = document.getElementById('captainPhone').value;
+            let playerList = document.getElementById('playerList').value;
 
-        osc.connect(gainNode);
-        gainNode.connect(audioCtx.destination);
+            let adminPhone = "60178153522";
 
-        osc.start();
-        osc.stop(audioCtx.currentTime + 0.08);
-    } catch (e) {
-        console.log("Audio error:", e);
-    }
-}
-
-document.getElementById('cyberForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    playPop();
-    
-    const teamNameInput = document.getElementById('teamName') || document.getElementById('NameTeam');
-    const captainNameInput = document.getElementById('captainName');
-    const captainPhoneInput = document.getElementById('captainPhone');
-    const playerListInput = document.getElementById('playerList');
-    
-    const teamName = teamNameInput ? teamNameInput.value : 'Tidak dinyatakan';
-    const captainName = captainNameInput ? captainNameInput.value : 'Tidak dinyatakan';
-    const captainPhone = captainPhoneInput ? captainPhoneInput.value : 'Tidak dinyatakan';
-    const playerList = playerListInput ? playerListInput.value : 'Tidak dinyatakan';
-    
-    // Gunakan kod negara 60 di depan
-    const adminPhone = "60178153522";
-    
-    let message = `⚡ PENDAFTARAN MLBB TOURNAMENT ⚡
+            let message = `⚡ PENDAFTARAN MLBB ONLINE TOURNAMENT ⚡
 
 *NAMA PASUKAN:* ${teamName}
 *KETUA PASUKAN:* ${captainName}
@@ -302,9 +274,16 @@ document.getElementById('cyberForm').addEventListener('submit', function(e) {
 ${playerList}
 
 *STATUS BAYARAN:* 
-TELAH BAYAR YURAN MAYBANK (151155787411).
+TELAH BAYAR YURAN MAYBANK KEPADA MOHD AKBAR BIN SABTAR (151155787411). RESIT SCREENSHOT SEDIA DILAMPIRKAN DI BAWAH.
 *SILA SAHKAN SLOT TEAM KAMI ADMIN!*`;
 
-let encodedMessage = encodeURIComponent(message);
-window.open(`https://wa.me/${adminPhone}?text=${encodedMessage}`, '_blank');
-</script>
+            let encodedMessage = encodeURIComponent(message);
+
+            // Beri sedikit masa untuk bunyi pop kedengaran sebelum buka WhatsApp
+            setTimeout(function() {
+                window.open(`https://wa.me/${adminPhone}?text=${encodedMessage}`, '_blank');
+            }, 150);
+        });
+    </script>
+</body>
+            </html>
