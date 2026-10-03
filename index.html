@@ -14,7 +14,7 @@
             background-color: #050508;
             color: #ffffff;
             overflow-x: hidden;
-            font-size: 1.1rem; /* Besarkan sedikit saiz asas teks */
+            font-size: 1.1rem;
         }
         h1, h2, h3, .cyber-font {
             font-family: 'Orbitron', sans-serif;
@@ -70,9 +70,6 @@
 </head>
 <body class="min-h-screen scanline">
 
-    <!-- Audio untuk Sound Pop / Klik -->
-    <audio id="popSound" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3" preload="auto"></audio>
-
     <!-- Navigasi Cyberpunk -->
     <nav class="bg-black/95 border-b-2 border-red-600 sticky top-0 z-50 px-6 py-4 flex justify-between items-center backdrop-blur-md">
         <div class="flex items-center gap-3">
@@ -88,8 +85,8 @@
     <!-- Header / Hero Section -->
     <header id="home" class="max-w-4xl mx-auto px-4 py-16 text-center">
         <!-- Logo MMS Esports -->
-        <div class="logo-box rounded-lg neon-glow">
-            <span class="cyber-font text-red-500 font-black text-3xl">MMS</span>
+        <div class="logo-box rounded-lg neon-glow overflow-hidden p-1">
+            <img <img src="ManaManaSandar%2020260825_220527.jpg" alt="Logo MMS Esports" style="width: 65px; height: 65px; border-radius: 50%; object-fit: cover; border: 2px solid #ef4444;">
         </div>
 
         <span class="bg-red-950/90 text-red-400 border border-red-600 text-sm px-5 py-1.5 rounded cyber-font uppercase tracking-widest font-bold">SYSTEM ONLINE: MLBB TOURNAMENT</span>
@@ -115,8 +112,8 @@
             </h3>
             <ul class="space-y-3 text-base md:text-lg text-gray-200 font-bold uppercase">
                 <li>• <strong>ORGANISASI:</strong> MMS ESPORTS</li>
-                <li>• <strong>FOUNDER:</strong> SUPERBRAIN</li>
                 <li>• <strong>FORMAT:</strong> 5V5 CUSTOM DRAFT PICK</li>
+                <li>• <strong>FOUNDER:</strong> SUPERBRAIN</li>
                 <li>• <strong>STAF:</strong> SPONSOR (MIFZAL) | ORGANIZER/EDITOR (HABIB)</li>
             </ul>
         </div>
@@ -187,29 +184,40 @@ RESERVE - PLAYER 6 (ID & SERVER)"></textarea>
         © 2026 MMS ESPORTS. ALL RIGHTS RESERVED. POWERED BY CYBERNET.
     </footer>
 
-    <!-- Script Bunyi & Interaksi -->
+    <!-- Script Sistem Bunyi Digital Terus (Web Audio API) -->
     <script>
-        // Fungsi Bunyi Pop (Aktif selepas sentuhan pertama di skrin)
-        let audioUnlocked = false;
+        // Penjana Bunyi Digital (Tidak perlu fail luar, 100% pasti berfungsi di semua telefon)
+        let audioCtx = null;
+
         function playPop() {
-            const sound = document.getElementById('popSound');
-            if (sound) {
-                sound.currentTime = 0;
-                sound.play().catch(e => console.log("Audio waiting for user gesture"));
+            try {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+
+                const osc = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+
+                osc.type = 'sine';
+                // Kesan bunyi pop sci-fi pendek (turun frekuensi dari 600Hz ke 200Hz)
+                osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(200, audioCtx.currentTime + 0.08);
+
+                gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
+
+                osc.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.08);
+            } catch (e) {
+                console.log("Audio error:", e);
             }
         }
-
-        // Buka kunci audio automatik apabila pengguna sentuh skrin buat kali pertama
-        window.addEventListener('pointerdown', function() {
-            if (!audioUnlocked) {
-                const sound = document.getElementById('popSound');
-                sound.play().then(() => {
-                    sound.pause();
-                    sound.currentTime = 0;
-                    audioUnlocked = true;
-                }).catch(e => {});
-            }
-        }, { once: true });
 
         // Proses Hantar ke WhatsApp Admin (+60 17-815 3522)
         document.getElementById('cyberForm').addEventListener('submit', function(e) {
@@ -221,7 +229,6 @@ RESERVE - PLAYER 6 (ID & SERVER)"></textarea>
             const captainPhone = document.getElementById('captainPhone').value;
             const playerList = document.getElementById('playerList').value;
 
-            // Nombor WhatsApp Admin dikemaskini kepada +60 17-815 3522 (60178153522)
             const adminPhone = "60178153522"; 
 
             const message = `*⚡ PENDAFTARAN CYBERPUNK MLBB TOURNAMENT ⚡*\n\n` +
@@ -238,4 +245,4 @@ RESERVE - PLAYER 6 (ID & SERVER)"></textarea>
         });
     </script>
 </body>
-            </html>
+    </html>
